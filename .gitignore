@@ -1,0 +1,4 @@
+secret.tfvars
+.terraform/
+.idea/
+
