@@ -1,4 +1,4 @@
-/* Private subnet */
+
 resource "aws_subnet" "private_az1" {
   vpc_id            = "${aws_vpc.default.id}"
   cidr_block        = "${var.private_subnet_az1_cidr}"
@@ -32,7 +32,6 @@ resource "aws_subnet" "private_az3" {
   }
 }
 
-/* Routing table for private subnet */
 resource "aws_route_table" "private" {
   vpc_id = "${aws_vpc.default.id}"
   route {
@@ -41,7 +40,6 @@ resource "aws_route_table" "private" {
   }
 }
 
-/* Associate the routing table to public subnets */
 resource "aws_route_table_association" "private_az1" {
   subnet_id = "${aws_subnet.private_az1.id}"
   route_table_id = "${aws_route_table.private.id}"

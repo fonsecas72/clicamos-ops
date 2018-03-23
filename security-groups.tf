@@ -1,4 +1,4 @@
-/* Default security group */
+
 resource "aws_security_group" "default" {
   name = "sg_default"
   description = "Default security group that allows inbound and outbound traffic from all instances in the VPC"
@@ -21,7 +21,6 @@ resource "aws_security_group" "default" {
   }
 }
 
-/* Security group for the nat server */
 resource "aws_security_group" "nat" {
   name = "sg_nat"
   description = "Security group for nat instances that allows SSH and VPN traffic from internet"
@@ -42,7 +41,6 @@ resource "aws_security_group" "nat" {
   }
 }
 
-/* Security group for the app servers */
 resource "aws_security_group" "app" {
   name = "sg_app"
   description = "Security group for app instances that allows web traffic inside the VPC"
@@ -63,7 +61,6 @@ resource "aws_security_group" "app" {
   }
 }
 
-/* Security group for the web */
 resource "aws_security_group" "elb_web" {
   name = "elb-web"
   description = "Security group for web that allows web traffic from internet"

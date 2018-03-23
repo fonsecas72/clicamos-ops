@@ -42,14 +42,14 @@
       "type": "shell",
       "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E '{{ .Path }}'",
       "scripts": [
-        "./provisioning/base.sh"
+        "./packer/provisioning/base.sh"
       ]
     },
     {
       "type": "shell",
       "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E '{{ .Path }}'",
       "scripts": [
-        "./provisioning/bootstrap.sh"
+        "./packer/provisioning/bootstrap.sh"
       ]
     },
     {

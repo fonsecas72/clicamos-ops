@@ -1,9 +1,8 @@
-/* Internet gateway for the public subnet */
+
 resource "aws_internet_gateway" "default" {
   vpc_id = "${aws_vpc.default.id}"
 }
 
-/* Public subnets */
 resource "aws_subnet" "public_az1" {
   vpc_id            = "${aws_vpc.default.id}"
   cidr_block        = "${var.public_subnet_az1_cidr}"
@@ -37,7 +36,6 @@ resource "aws_subnet" "public_az3" {
   }
 }
 
-/* Routing table for public subnet */
 resource "aws_route_table" "public" {
   vpc_id = "${aws_vpc.default.id}"
   route {
@@ -46,7 +44,6 @@ resource "aws_route_table" "public" {
   }
 }
 
-/* Associate the routing table to public subnets */
 resource "aws_route_table_association" "public_az1" {
   subnet_id = "${aws_subnet.public_az1.id}"
   route_table_id = "${aws_route_table.public.id}"

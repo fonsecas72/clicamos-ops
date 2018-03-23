@@ -1,9 +1,6 @@
 #!/bin/bash
 bash 2>&1 <<"USERDATA" | while read line; do echo "$(date --iso-8601=ns) $line"; done | tee -a /var/log/userdata.log
 set -xe
-
-set -xe
-
 # update packages
 sudo apt-get update
 sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
