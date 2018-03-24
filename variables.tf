@@ -1,31 +1,13 @@
 variable "AWS_ACCESS_KEY" {}
 variable "AWS_SECRET_KEY" {}
+
 variable "region" {
   default = "us-east-1"
-}
-
-variable "availability_zones" {
-  default = "us-east-1a,us-east-1b,us-east-1c"
-  description = "List of availability zones"
 }
 
 variable "vpc_cidr" {
   description = "CIDR for VPC"
   default     = "172.31.0.0/16"
-}
-variable "public_subnet_az1_cidr" {
-  description = "CIDR for az1 public subnet"
-  default     = "172.31.0.0/24"
-}
-
-variable "public_subnet_az2_cidr" {
-  description = "CIDR for az2 public subnet"
-  default     = "172.31.1.0/24"
-}
-
-variable "public_subnet_az3_cidr" {
-  description = "CIDR for az3 public subnet"
-  default     = "172.31.2.0/24"
 }
 
 variable "private_subnet_az1_cidr" {

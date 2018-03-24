@@ -22,3 +22,11 @@ provider "aws" {
   secret_key = "${var.AWS_SECRET_KEY}"
   region     = "${var.region}"
 }
+
+module "network" {
+  source = "github.com/fonsecas72/mod-network?ref=master"
+  tag_project = "clicamos"
+  tag_environment = "prod"
+  aws_region = "us-east-1"
+  vpc_cidr_network = "172.31"
+}

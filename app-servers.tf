@@ -19,7 +19,7 @@ resource "aws_elb" "elb_app" {
 
   cross_zone_load_balancing = true
   idle_timeout = 60
-  subnets         = ["${aws_subnet.public_az1.id}", "${aws_subnet.public_az2.id}", "${aws_subnet.public_az3.id}"]
+  subnets         = ["${split(",", module.network.public_subnet_ids)}"]
   security_groups = ["${aws_security_group.elb_web.id}"]
 
   tags {
