@@ -28,7 +28,7 @@
     },
     {
       "type": "file",
-      "source": "./ssh",
+      "source": "./packer/ssh",
       "destination": "/ops"
     },
     {

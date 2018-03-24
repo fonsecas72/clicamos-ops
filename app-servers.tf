@@ -31,10 +31,10 @@ resource "aws_autoscaling_group" "asg_app" {
   lifecycle { create_before_destroy = true }
 
   name = "asg-app - ${aws_launch_configuration.lc_app.name}"
-  max_size = 1
+  max_size = 2
   min_size = 1
   wait_for_elb_capacity = 1
-  desired_capacity = 1
+  desired_capacity = 2
   health_check_grace_period = 300
   health_check_type = "ELB"
   launch_configuration = "${aws_launch_configuration.lc_app.id}"
