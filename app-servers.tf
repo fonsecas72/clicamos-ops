@@ -39,7 +39,7 @@ resource "aws_autoscaling_group" "asg_app" {
   health_check_type = "ELB"
   launch_configuration = "${aws_launch_configuration.lc_app.id}"
   load_balancers = ["${aws_elb.elb_app.id}"]
-  vpc_zone_identifier = ["${aws_subnet.private_az1.id}", "${aws_subnet.private_az2.id}", "${aws_subnet.private_az3.id}"]
+  vpc_zone_identifier = ["${split(",", module.network.private_subnet_ids)}"]
 
   tag {
     key = "Name"
@@ -53,6 +53,6 @@ resource "aws_launch_configuration" "lc_app" {
 
   image_id = "${var.ami}"
   instance_type = "t2.micro"
-  security_groups = ["${aws_security_group.default.id}", "${aws_security_group.app.id}"]
+  security_groups = ["${module.network.sg_default}", "${aws_security_group.app.id}"]
   user_data = "${file("user_data/app-server.sh")}"
 }

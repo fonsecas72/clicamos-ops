@@ -24,9 +24,7 @@ provider "aws" {
 }
 
 module "network" {
-  source = "github.com/fonsecas72/mod-network?ref=master"
+  source = "github.com/fonsecas72/mod-network"
   tag_project = "clicamos"
   tag_environment = "prod"
-  aws_region = "us-east-1"
-  vpc_cidr_network = "172.31"
 }
