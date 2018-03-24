@@ -1,6 +1,6 @@
 
 resource "aws_subnet" "private_az1" {
-  vpc_id            = "${aws_vpc.default.id}"
+  vpc_id            = "${module.network.vpc_id}"
   cidr_block        = "${var.private_subnet_az1_cidr}"
   availability_zone = "us-east-1a"
   map_public_ip_on_launch = false
@@ -11,7 +11,7 @@ resource "aws_subnet" "private_az1" {
 }
 
 resource "aws_subnet" "private_az2" {
-  vpc_id            = "${aws_vpc.default.id}"
+  vpc_id            = "${module.network.vpc_id}"
   cidr_block        = "${var.private_subnet_az2_cidr}"
   availability_zone = "us-east-1b"
   map_public_ip_on_launch = false
@@ -22,7 +22,7 @@ resource "aws_subnet" "private_az2" {
 }
 
 resource "aws_subnet" "private_az3" {
-  vpc_id            = "${aws_vpc.default.id}"
+  vpc_id            = "${module.network.vpc_id}"
   cidr_block        = "${var.private_subnet_az3_cidr}"
   availability_zone = "us-east-1c"
   map_public_ip_on_launch = false
@@ -33,7 +33,7 @@ resource "aws_subnet" "private_az3" {
 }
 
 resource "aws_route_table" "private" {
-  vpc_id = "${aws_vpc.default.id}"
+  vpc_id = "${module.network.vpc_id}"
   route {
     cidr_block = "0.0.0.0/0"
     instance_id = "${aws_instance.nat.id}"
