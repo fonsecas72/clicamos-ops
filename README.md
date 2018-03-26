@@ -81,6 +81,23 @@ immediately start sending requests to the new instances once they pass the healt
 
 ![Alt text](load_balancer.png?raw=true)
 
+##### How to
+
+To build the AMI:
+
+```
+packer build -machine-readable packer/app-server.json | tee build.log
+"AMI=$(grep 'artifact,0,id' build.log | cut -d, -f6 | cut -d: -f2)"
+echo "ami = \""$AMI"\"" > ami.tfvars
+```
+
+(you can just run `packer build packer/app-server.json` but then you'll need to note the resulting AMI and give that to the following command)
+
+To deploy structure (you'll need AWS access and secret keys)
+
+terraform init
+terraform apply -var-file=ami.tfvars
+```
 
 ##### Directories/Files:
 
