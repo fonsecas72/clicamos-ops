@@ -95,6 +95,7 @@ echo "ami = \""$AMI"\"" > ami.tfvars
 
 To deploy structure (you'll need AWS access and secret keys)
 
+```
 terraform init
 terraform apply -var-file=ami.tfvars
 ```
