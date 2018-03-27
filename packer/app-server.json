@@ -20,26 +20,6 @@
   "provisioners": [
     {
       "type": "shell",
-      "execute_command": "echo {{user `ssh_username`}} | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
-      "inline": [
-        "mkdir -p /ops",
-        "chmod a+w /ops"
-      ]
-    },
-    {
-      "type": "file",
-      "source": "./packer/ssh",
-      "destination": "/ops"
-    },
-    {
-      "type": "shell",
-      "execute_command": "echo {{user `ssh_username`}} | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
-      "inline": [
-        "cat /ops/ssh/* >> /home/ubuntu/.ssh/authorized_keys"
-      ]
-    },
-    {
-      "type": "shell",
       "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E '{{ .Path }}'",
       "scripts": [
         "./packer/provisioning/base.sh"
