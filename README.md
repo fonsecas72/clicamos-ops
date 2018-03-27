@@ -106,8 +106,6 @@ terraform apply -var-file=ami.tfvars
     - The "packer" folder holds configurations regarding the AMI creation.
     packer/vagrant
     - You can use the "packer/vagrant" folder to test the deployment provisioning.
-    packer/vagrant/ssh
-    - private&pub key used when building the ami and to access it later
     user_data
     - just holds a script for extra config we need before we launch the app instances
     ami.tfvars
