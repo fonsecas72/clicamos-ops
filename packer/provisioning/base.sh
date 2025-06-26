@@ -6,7 +6,10 @@ sudo apt-get update
 sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
 
 # install base packages
-sudo DEBIAN_FRONTEND=noninteractive apt-get install -y vim curl
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y vim curl python3-pip  # Added python3-pip for ec2metadata
+
+# Install ec2metadata
+sudo pip3 install ec2metadata
 
 # hostname scripts
 sudo bash -c 'cat << "EOF" > /opt/update_hostname.sh
@@ -31,12 +34,31 @@ start on startup
 pre-start script
   bash /opt/update_hostname.sh
 end script
+EOF'
 
-task
-exec hostname -b -F /etc/hostname
+# For Ubuntu 22.04, Upstart is replaced by systemd.
+# We'll create a systemd service for hostname update.
+sudo bash -c 'cat << "EOF" > /etc/systemd/system/hostname-update.service
+[Unit]
+Description=Set system hostname from EC2 metadata
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/opt/update_hostname.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
 EOF'
 
 sudo chmod 0755 /opt/update_hostname.sh
-sudo chmod 0644 /etc/init/hostname.conf
+sudo chmod 0644 /etc/systemd/system/hostname-update.service
+
+# Run the script immediately to set hostname
 sudo /opt/update_hostname.sh
-sudo hostname -b -F /etc/hostname
+
+# Enable and start the service
+sudo systemctl daemon-reload
+sudo systemctl enable hostname-update.service
+sudo systemctl start hostname-update.service
