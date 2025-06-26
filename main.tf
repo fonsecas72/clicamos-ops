@@ -1,6 +1,6 @@
 
 terraform {
-  required_version = ">= 1.9.8"
+  required_version = ">= 1.12.2"
   backend "s3" {
     bucket = "clicks-tf-state"
     key    = "network/terraform.tfstate"

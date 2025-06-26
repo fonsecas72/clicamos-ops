@@ -26,17 +26,19 @@ fi
 hostname -b -F /etc/hostname
 EOF'
 
-sudo bash -c 'cat << "EOF" > /etc/init/hostname.conf
-description     "set system hostname"
+# The following Upstart configuration is legacy and not needed for Ubuntu 22.04+
+# It has been removed.
+# sudo bash -c 'cat << "EOF" > /etc/init/hostname.conf
+# description     "set system hostname"
+#
+# start on startup
+#
+# pre-start script
+#   bash /opt/update_hostname.sh
+# end script
+# EOF'
 
-start on startup
-
-pre-start script
-  bash /opt/update_hostname.sh
-end script
-EOF'
-
-# For Ubuntu 22.04, Upstart is replaced by systemd.
+# For Ubuntu 22.04 and 24.04, Upstart is replaced by systemd.
 # We'll create a systemd service for hostname update.
 sudo bash -c 'cat << "EOF" > /etc/systemd/system/hostname-update.service
 [Unit]

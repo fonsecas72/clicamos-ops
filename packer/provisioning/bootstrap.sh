@@ -1,13 +1,17 @@
 #!/usr/bin/env bash
 set -xe
 
-# Install Node.js and npm (using NodeSource repository for a specific version if needed, but default should be fine for 22.04)
-# curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+# Install Node.js and npm.
+# For Ubuntu 22.04/24.04 LTS, nodejs and npm are available in default repositories.
+# Using default repositories is generally preferred for simplicity unless a very specific Node version is required.
+# If a specific version like Node.js 18.x, 20.x or 22.x were needed, you might use NodeSource:
+# curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 # sudo apt-get install -y nodejs
 
-# For Ubuntu 22.04, nodejs and npm are available in default repositories.
-# nodejs package might install /usr/bin/nodejs, some scripts might expect /usr/bin/node.
-# Let's ensure both are available or use the correct one.
+# The `nodejs` package might install the binary as `/usr/bin/nodejs`.
+# Some scripts or tools might expect `/usr/bin/node`.
+# The following lines ensure that `npm` and `git` are installed,
+# and later, a symlink is created if `node` is not found but `nodejs` is.
 sudo apt-get update
 sudo apt-get install -y git nodejs npm
 
@@ -32,9 +36,9 @@ sudo -u $USER git clone https://github.com/fonsecas72/clicamos-project.git /srv/
 sudo -u $USER npm install --prefix /srv/projectX/current
 
 # Ensure the ExecStart path for nodejs is correct.
-# On Ubuntu 22.04, `nodejs` is typically at `/usr/bin/nodejs`.
-# If `node` symlink was created, `/usr/bin/node` would also work.
-# Let's use /usr/bin/nodejs to be explicit.
+# On Ubuntu 22.04/24.04, `nodejs` (if installed from default repos) is typically at `/usr/bin/nodejs`.
+# The `node` symlink created earlier would make `/usr/bin/node` also work.
+# Using `/usr/bin/nodejs` in the service file is explicit and reliable.
 sudo bash -c 'cat > /etc/systemd/system/node_server.service <<EOF
 [Unit]
 Description=Node.js server
